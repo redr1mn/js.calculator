@@ -48,7 +48,7 @@ function handleDecimal() {
 function handlePercent() {
     const value = parseFloat(currentInput);
     if (isNaN(value)) return;
-    
+
     if (operator === '+' || operator === '-') {
         const first = parseFloat(previousInput);
         if (!isNaN(first)) {
@@ -106,20 +106,24 @@ function calculate() {
 
     switch (operator) {
         case '+':
-            result = add(first, second);
+            result = formatNumber(add(first, second));
             break;
         case '-':
-            result = subtract(first, second);
+            result = formatNumber(subtract(first, second));
             break;
         case '×':
-            result = multiply(first, second);
+            result = formatNumber(multiply(first, second));
             break;
         case '÷':
             if (second === 0) result = 'Error';
-            else result = divide(first, second);
+            else result = formatNumber(divide(first, second));
             break;
     }
     currentInput = String(result);
     operator = null;
     resetDisplay = true;
+}
+
+function formatNumber(num) {
+    return parseFloat(num.toFixed(10));
 }
